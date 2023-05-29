@@ -53,10 +53,10 @@ number_of_requests = 1
 
 # Iterate not to exceed the single request limit which I saw was around 900 posts
 for x in range(number_of_requests):
-    # print how much is done
     post_count, word_counts = count_words(subreddit_name, limit=total_posts_to_fetch, skip=skip, word_counts=word_counts, post_count=post_count)
     skip += total_posts_to_fetch
     percentage = post_count * 100 / (total_posts_to_fetch * number_of_requests)
+    # print how much is done
     print(f"%{percentage} done")
 
 # sort
