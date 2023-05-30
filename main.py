@@ -44,8 +44,8 @@ def count_words(subreddit_name, limit=None, skip=0, word_counts={}, post_count=0
     return post_count, word_counts
 
 
-subreddit_name = 'Turkey'  # Replace with your desired subreddit name without 'r/'
-total_posts_to_fetch = 30  # Set the total number of posts you want to fetch
+subreddit_name = 'Turkey' 
+total_posts_to_fetch = 30  # Set the total number of posts you want to fetch per request
 skip = 0  # Skip the posts that have already been looked at
 post_count = 0
 word_counts = {}  # Words are stored here
