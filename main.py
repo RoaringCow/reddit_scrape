@@ -1,5 +1,6 @@
 import praw
 import json
+import time
 
 def count_words(subreddit_name, limit=None, skip=0, word_counts={}, post_count=0):
     # Authenticate with the Reddit API
@@ -24,8 +25,6 @@ def count_words(subreddit_name, limit=None, skip=0, word_counts={}, post_count=0
     # Get the newest posts in the subreddit
     posts = subreddit.new(limit=limit, params={'before': skip})
 
-    # Get the total number of posts
-
     # Iterate over the posts in the subreddit
     for post in posts:
         # Split the post title into words
@@ -38,26 +37,36 @@ def count_words(subreddit_name, limit=None, skip=0, word_counts={}, post_count=0
                 word_counts[word] += 1
             else:
                 word_counts[word] = 1
-
         post_count += 1
+
+        percentage = post_count * 100 / (total_posts_to_fetch * number_of_requests)
+        # print how much is done
+        print(f"%{percentage} done")
 
     return post_count, word_counts
 
 
-subreddit_name = 'Turkey'  # Replace with your desired subreddit name without 'r/'
-total_posts_to_fetch = 30  # Set the total number of posts you want to fetch
+subreddit_name = 'Turkey'
+total_posts_to_fetch = 100  # Set the total number of posts you want to fetch
 skip = 0  # Skip the posts that have already been looked at
 post_count = 0
 word_counts = {}  # Words are stored here
-number_of_requests = 1
+number_of_requests = 12
+REQUEST_LIMIT = 60  # reddit api allows only 60 per minute
+current_request_count = 0
+timer = time.time()  # to reset current request count
 
 # Iterate not to exceed the single request limit which I saw was around 900 posts
 for x in range(number_of_requests):
-    post_count, word_counts = count_words(subreddit_name, limit=total_posts_to_fetch, skip=skip, word_counts=word_counts, post_count=post_count)
+    while current_request_count > 60:  # wait until the time is reset
+        if timer - time.time() > 60:  # reset count every 60 seconds
+            current_request_count = 0
+            timer = time.time()
+
+    post_count, word_counts = count_words(subreddit_name, limit=total_posts_to_fetch, skip=skip,
+                                          word_counts=word_counts, post_count=post_count)
     skip += total_posts_to_fetch
-    percentage = post_count * 100 / (total_posts_to_fetch * number_of_requests)
-    # print how much is done
-    print(f"%{percentage} done")
+    current_request_count += 1  # add 1 every iteration
 
 # sort
 word_counts = dict(sorted(word_counts.items(), key=lambda x: x[1], reverse=True))
