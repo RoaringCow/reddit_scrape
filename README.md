@@ -8,3 +8,4 @@ you must enter reddit api things like in the user_data.json file
 
     REDDIT API IS TRASH
     scraping is the way to go
+    but sadly this repo uses the api
