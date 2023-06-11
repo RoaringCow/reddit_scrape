@@ -5,3 +5,5 @@ you must enter reddit api things like in the user_data.json file
     "client_secret": "#",
     "user_agent": "MyPythonScript/1.0"
 }
+
+    REDDIT API IS TRASH
