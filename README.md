@@ -6,6 +6,4 @@ you must enter reddit api things like in the user_data.json file
     "user_agent": "MyPythonScript/1.0"
 }
 
-    REDDIT API IS TRASH
-    scraping is the way to go
-    but sadly this repo uses the api
+  This was made before the api change so i guess its useless now.
