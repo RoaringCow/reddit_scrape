@@ -54,8 +54,8 @@ def run_bot(reddit, post_count, subreddit):
     return words_dict
 
 
-reddit = authenticate(client_id="305yTJBnPYT_RE25kZ0Miw",
-                      client_secret="uCVcPtnnOdgqEZ7Xa_wjidWV1_z1-A",
+reddit = authenticate(client_id="305yTJBnPYTaRE25kZ0Miw",
+                      client_secret="uCVcPtnnOdgqEZ7ss_wjidWV1_z1-A",
                       user_agent="Oha")
 
 words = run_bot(reddit, 100, get_subreddit())
